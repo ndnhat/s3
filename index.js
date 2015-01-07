@@ -65,6 +65,7 @@ function Upload(file, opts) {
   this.key = S3.key;
   this.acl = S3.acl;
   this.redirect = S3.redirect;
+  if (opts.proxy) this.proxy = opts.proxy;
 }
 
 /**
@@ -119,7 +120,7 @@ Upload.prototype.end = function(fn){
   }
   form.append('file', this.file);
 
-  xhr.open('POST', this.bucketUrl, true);
+  xhr.open('POST', this.proxy || this.bucketUrl, true);
   xhr.send(form);
 };
 
